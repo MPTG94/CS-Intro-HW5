@@ -1,0 +1,2 @@
+Please enter a non negative integer (k):Please enter a non negative integer (n):Please enter n integer values with the special characteristic:
+1 2 3 4 7 15 20 22 28 30 
