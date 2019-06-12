@@ -17,7 +17,9 @@ int fill_array_with_values(int *arr, int n);
 void sort_arr(int *arr, int n, int k);
 
 /*-------------------------------------------------------------------------
-  The main program. (describe what your program does here)
+  This program takes as input an array ordered distance number, the size of
+  an array and the numbers to fill the array with.
+  The program will sort and print the sorted array.
  -------------------------------------------------------------------------*/
 int main()
 {
@@ -40,14 +42,18 @@ int main()
         return 0;
     }
 
-    print_scan_arr_request();
-    if (!fill_array_with_values(arr, n))
+    if (n != 0)
     {
-        return 0;
+        print_scan_arr_request();
+        if (!fill_array_with_values(arr, n))
+        {
+            return 0;
+        }
+        sort_arr(arr, n, k);
+        print_arr(arr, n);
+        free(arr);
     }
-    sort_arr(arr, n, k);
-    print_arr(arr, n);
-    free(arr);
+
     return 0;
 }
 
