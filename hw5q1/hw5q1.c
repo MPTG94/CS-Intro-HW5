@@ -15,7 +15,6 @@ void print_scan_arr_request();
 int get_int_from_user(int *var, char ch);
 int fill_array_with_values(int *arr, int n);
 void sort_arr(int *arr, int n, int k);
-void swap(int *num1, int *num2);
 
 /*-------------------------------------------------------------------------
   The main program. (describe what your program does here)
@@ -52,14 +51,6 @@ int main()
     return 0;
 }
 
-void swap(int *num1, int *num2)
-{
-    int temp = 0;
-    temp = *num1;
-    *num1 = *num2;
-    *num2 = temp;
-}
-
 void sort_arr(int *arr, int n, int k)
 {
     if (k == 0)
@@ -68,19 +59,15 @@ void sort_arr(int *arr, int n, int k)
     }
     else if (k < n)
     {
-        for (int i = 0; i < n - k; i++)
+        for (int i = 0; i < n - 1; i++)
         {
-            for (int j = i + 1; j <= n - k; j++)
+            for (int j = i + 1; j - i <= k && j < n; j++)
             {
                 if (arr[i] > arr[j])
                 {
-                    /*printf("=======BEFORE SWAP=======\n");
-                    printf("first val: %d\n", arr[i]);
-                    printf("second val: %d\n", arr[j]);*/
-                    swap(&arr[i], &arr[j]);
-                    /*printf("=======AFTER SWAP=======\n");
-                    printf("first val: %d\n", arr[i]);
-                    printf("second val: %d\n", arr[j]);*/
+                    int temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
                 }
             }
         }
@@ -93,13 +80,9 @@ void sort_arr(int *arr, int n, int k)
             {
                 if (arr[i] > arr[j])
                 {
-                    /*printf("=======BEFORE SWAP=======\n");
-                    printf("first val: %d\n", arr[i]);
-                    printf("second val: %d\n", arr[j]);*/
-                    swap(&arr[i], &arr[j]);
-                    /*printf("=======AFTER SWAP=======\n");
-                    printf("first val: %d\n", arr[i]);
-                    printf("second val: %d\n", arr[j]);*/
+                    int temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
                 }
             }
         }
