@@ -24,7 +24,11 @@ int check_sum_for_temp(int mandates[], bool can_collaborate[][N], int temp[], in
 int fill_max_parties_arr(int temp[N], int max_parties[N], int start, int end);
 
 /*-------------------------------------------------------------------------
-  The main program. (describe what your program does here)
+  This program receives an array mandates for parties and a two dimensional
+  array containing information about which party is willing to cooperate
+  with which.
+  The program will print the combination of parties with the highest number
+  of mandates..
  -------------------------------------------------------------------------*/
 int main()
 {
@@ -94,9 +98,10 @@ int max_coalition(int mandates[], bool can_collaborate[][N], int max_parties[N])
 
 /*
   Function to check all of the different combinations of parties to form a coalition.
-  temp is a temporary array to sote the current sub combination of parties.
+  temp is a temporary array to store the current sub combination of parties.
   index is the length of the temp array.
   prev is the party we are currently checking combinations for.
+  The function will return the number of parties participating in the maximum coalition.
 */
 int coalitions_calc(int mandates[], bool can_collaborate[][N], int temp[N], int prev, int index, int max_parties[N], int *max)
 {
