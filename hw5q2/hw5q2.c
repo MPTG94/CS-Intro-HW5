@@ -19,7 +19,7 @@ int count_coalitions(int mandates[], bool can_collaborate[][N]);
 int coalitions_calc(int mandates[], bool can_collaborate[][N], int temp[N], int prev, int index);
 int is_coalition(int mandates[], int temp[], int start);
 void print_arr(int arr[], int start,int n);
-
+int check_sum_for_temp(int mandates[], bool can_collaborate[][N], int temp[], int start, int end);
 
 /*-------------------------------------------------------------------------
   The main program. (describe what your program does here)
@@ -87,14 +87,14 @@ int count_coalitions(int mandates[], bool can_collaborate[][N])
 
 /*
   temp is a temporary array
-  index is the current index to run over mandates array from.
-  prev is the last relevant value from the temp array.
+  index is the length of the temp array.
+  prev is the party we are currently looking at.
 */
 int coalitions_calc(int mandates[], bool can_collaborate[][N], int temp[N], int prev, int index)
 {
     int sum = 0;
-    bool agree = true;
-    prev++;
+    //int my_sum = 0;
+    //bool agree = true;
     if (index == N)
     {
         if (is_coalition(mandates, temp, index - 1))
@@ -104,38 +104,44 @@ int coalitions_calc(int mandates[], bool can_collaborate[][N], int temp[N], int 
         return 0;
 
     }
-    for (int i = index; i < N; i++)
+    for (int i = prev; i < N; i++)
     {
-        for (int j = index; j < N; j++)
+        // adding the i party to the temp array
+        temp[index] = i;
+        //printf("temp arr is:\n");
+        //print_arr(temp, 0, index+1);
+        sum +=check_sum_for_temp(mandates, can_collaborate, temp, 0, index+1);
+        //
+        // going over the array from i until the length of the array
+        /*for (int j = i; j < index+1; j++)
         {
-            temp[j] = can_collaborate[i][j];
-            //sum+=coalitions_calc(mandates, can_collaborate, temp, prev,index+1);
-        }
-        print_arr(temp, index, N);
-        sum+=is_coalition(mandates, temp, index);
-    }
-    /*temp[prev] = 1;
-    for (int i = index; i < N; i++)
-    {
-        for (int j = i + 1; j < N; j++)
-        {
-            // going over each party and checking if it will cooperate with the current party.
+            printf("i is: %d j is: %d\n",i ,j);
+            // checking if party i will cooperate with j
+            //printf("checking if %d will cooperate with %d\n", i, j);
             if (!can_collaborate[i][j])
             {
-                printf("party no. %d will not cooperate with party %d\n", i, j);
                 agree = false;
             }
         }
+        // party i will cooperate will all other parties in the array.
         if (agree)
         {
-            // all parties agreed to cooperate, so this party will participate
-            temp[i] = 1;
-            print_arr(temp, index, N);
-            // initiating new coalition check with current party included.
+            //printf("party %d will cooperate with all other parties, so it will be included\n", i);
+            my_sum+= mandates[i];
         }
-        agree = true;
-        sum += coalitions_calc(mandates, can_collaborate, temp, prev+1, index+1);
+        agree = true;*/
+        //
+        // calling another calculation with the i party in the array and a shorter sub arr
+        sum += coalitions_calc(mandates, can_collaborate,temp, i+1, index+1);
+        //sum+=is_coalition(mandates, temp, index);
+        temp[index] = -1;
+
+    }
+    /*if (my_sum > 60)
+    {
+        sum++;
     }*/
+
     return sum;
 }
 
@@ -144,13 +150,45 @@ int is_coalition(int mandates[], int temp[], int start)
     int sum = 0;
     for (int i = start; i < N; i++)
     {
-        if (temp[i] == 1)
+        if (temp[i] != 1)
         {
             sum += mandates[i];
         }
     }
     if (sum > 60)
     {
+        return 1;
+    }
+    return 0;
+}
+
+int check_sum_for_temp(int mandates[], bool can_collaborate[][N], int temp[], int start, int end)
+{
+    int sum = 0;
+    bool agree = true;
+    print_arr(temp, start, end);
+    for (int i = start; i < end; i++)
+    {
+        for (int j = start; j < end; j++)
+        {
+            if (!can_collaborate[temp[i]][temp[j]])
+            {
+                agree = false;
+            }
+        }
+        if (agree)
+        {
+            if (temp[i] != -1)
+            {
+                    sum+=mandates[temp[i]];
+            }
+        }
+    }
+    if (sum > 60)
+    {
+        printf("the sum for the array is enough to form a coalition\n");
+        print_arr(temp, start, end);
+        printf("the sum is: %d\n", sum);
         return 1;
     }
     return 0;
