@@ -1,0 +1,4 @@
+Enter mandates:
+Enter possible collaborations:
+Parties in maximal coalition:
+0 1 4 

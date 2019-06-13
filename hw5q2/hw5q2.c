@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-
 /*=========================================================================
   Constants and definitions:
 ==========================================================================*/
@@ -20,7 +19,7 @@ bool scan_input(int mandates[], bool can_collaborate[][N]);
 int count_coalitions(int mandates[], bool can_collaborate[][N]);
 int coalitions_calc(int mandates[], bool can_collaborate[][N], int temp[N], int prev, int index);
 int is_coalition(int mandates[], int temp[], int start);
-void print_arr(int arr[], int start,int n);
+void print_arr(int arr[], int start, int n);
 int check_sum_for_temp(int mandates[], bool can_collaborate[][N], int temp[], int start, int end);
 
 /*-------------------------------------------------------------------------
@@ -28,7 +27,7 @@ int check_sum_for_temp(int mandates[], bool can_collaborate[][N], int temp[], in
  -------------------------------------------------------------------------*/
 int main()
 {
-    int mandates[N]= {0};
+    int mandates[N] = {0};
     bool can_collaborate[N][N] = {{0}};
     if (!scan_input(mandates, can_collaborate))
     {
@@ -44,7 +43,7 @@ bool scan_1d_arr(int arr[], int n)
 {
     for (int i = 0; i < n; i++)
     {
-        if (scanf("%d", arr+i)!=1 || arr[i] < 0)
+        if (scanf("%d", arr + i) != 1 || arr[i] < 0)
         {
             return false;
         }
@@ -80,7 +79,6 @@ bool scan_input(int mandates[], bool can_collaborate[][N])
     return scan_2d_bool_arr(can_collaborate, N);
 }
 
-
 int count_coalitions(int mandates[], bool can_collaborate[][N])
 {
     int temp[N] = {0};
@@ -103,7 +101,6 @@ int coalitions_calc(int mandates[], bool can_collaborate[][N], int temp[N], int 
             return 1;
         }
         return 0;
-
     }
     for (int i = prev; i < N; i++)
     {
@@ -112,10 +109,9 @@ int coalitions_calc(int mandates[], bool can_collaborate[][N], int temp[N], int 
         // Checking if the current temporary array has enough cooperating parties to form a coalition.
         sum += check_sum_for_temp(mandates, can_collaborate, temp, 0, index + 1);
         // calling another calculation with the i party in the array and a shorter sub arr
-        sum += coalitions_calc(mandates, can_collaborate,temp, i + 1, index + 1);
+        sum += coalitions_calc(mandates, can_collaborate, temp, i + 1, index + 1);
         // Emptying the cell containing the party in order to exclude it from further calculations.
         temp[index] = EMPTY;
-
     }
     return sum;
 }
@@ -163,7 +159,7 @@ int check_sum_for_temp(int mandates[], bool can_collaborate[][N], int temp[], in
         {
             if (temp[i] != EMPTY)
             {
-                    sum += mandates[temp[i]];
+                sum += mandates[temp[i]];
             }
         }
     }
@@ -174,15 +170,15 @@ int check_sum_for_temp(int mandates[], bool can_collaborate[][N], int temp[], in
     return 0;
 }
 
-void print_arr(int arr[], int start,int n)
+void print_arr(int arr[], int start, int n)
 {
-    if (n == 0) return;
+    if (n == 0)
+        return;
 
     printf("[");
     for (int i = start; i < n - 1; i++)
     {
         printf("%d, ", arr[i]);
     }
-    printf("%d]\n", arr[n-1]);
-
+    printf("%d]\n", arr[n - 1]);
 }
