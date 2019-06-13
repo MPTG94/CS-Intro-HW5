@@ -5,8 +5,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-
-
 /*=========================================================================
   Constants and definitions:
 ==========================================================================*/
@@ -25,14 +23,12 @@ void print_arr(int arr[], int start, int n);
 int check_sum_for_temp(int mandates[], bool can_collaborate[][N], int temp[], int start, int end);
 int fill_max_parties_arr(int temp[N], int max_parties[N], int start, int end);
 
-
-
 /*-------------------------------------------------------------------------
   The main program. (describe what your program does here)
  -------------------------------------------------------------------------*/
 int main()
 {
-    int mandates[N]={0};
+    int mandates[N] = {0};
     bool can_collaborate[N][N] = {{0}};
     if (!scan_input(mandates, can_collaborate))
     {
@@ -53,7 +49,7 @@ bool scan_1d_arr(int arr[], int n)
 {
     for (int i = 0; i < n; i++)
     {
-        if (scanf("%d", arr+i)!=1 || arr[i] < 0)
+        if (scanf("%d", arr + i) != 1 || arr[i] < 0)
         {
             return false;
         }
@@ -134,9 +130,9 @@ int coalitions_calc(int mandates[], bool can_collaborate[][N], int temp[N], int 
         // calling another calculation with the i party in the array and a shorter sub arr
         parties_holder = coalitions_calc(mandates, can_collaborate, temp, i + 1, index + 1, max_parties, max);
         if (parties_holder > num_parties)
-            {
-                num_parties = parties_holder;
-            }
+        {
+            num_parties = parties_holder;
+        }
         // Emptying the cell containing the party in order to exclude it from further calculations.
         temp[index] = EMPTY;
     }
@@ -193,7 +189,7 @@ int check_sum_for_temp(int mandates[], bool can_collaborate[][N], int temp[], in
                 }
                 else
                 {
-                        sum += mandates[temp[i]];
+                    sum += mandates[temp[i]];
                 }
             }
         }
@@ -235,4 +231,3 @@ void print_arr(int arr[], int start, int n)
     }
     printf("%d]\n", arr[n - 1]);
 }
-
