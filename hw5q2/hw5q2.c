@@ -124,7 +124,7 @@ int is_coalition(int mandates[], int temp[], int start)
     int sum = 0;
     for (int i = start; i < N; i++)
     {
-        if (temp[i] != 1)
+        if (temp[i] >= 0)
         {
             sum += mandates[i];
         }
@@ -139,6 +139,7 @@ int is_coalition(int mandates[], int temp[], int start)
 /*
   Function to check which of the parties in the current temp array will cooperate and then
   check if these parties have enough mandates to form a coalition.
+  The function will return 1 if the parties have enough mandates to form a coalition and 0 otherwise.
 */
 int check_sum_for_temp(int mandates[], bool can_collaborate[][N], int temp[], int start, int end)
 {
