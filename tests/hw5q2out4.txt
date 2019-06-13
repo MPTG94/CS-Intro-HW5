@@ -1,0 +1,3 @@
+Enter mandates:
+Enter possible collaborations:
+Number of coalitions: 2
